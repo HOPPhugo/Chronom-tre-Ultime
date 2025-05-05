@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -17,7 +18,7 @@ namespace Chronomètre_Ultime
     {
         double secondes = 3700;
         bool chrono = true;
-        int virguls = 3;
+        string virguls;
         double arrondie;
         double converted = 0;
         string CNT = "-";
@@ -156,21 +157,223 @@ namespace Chronomètre_Ultime
         {
             convertion = true;
             CNT = "H";
-            convertion_on();
+            Convertion_on();
         }
-        private async void convertion_on()
+        private async void Convertion_on()
         {
-            virguls = Convert.ToInt16(textBox1.Text);
-            if (convertion == true)
+            int decimales;
+            virguls = textBox1.Text;
+            if (convertion == true && textBox1.Text != "")
             {
-                if (CNT == "H")
-                {
-                    converted = secondes / 3600;
-                    arrondie = Math.Round(converted, virguls);
+                
+                try{
+                    decimales = Convert.ToInt32(virguls); 
+                    if (CNT == "H" && decimales <= 15)
+                    {
+                        converted = secondes / 3600;
+                        arrondie = Math.Round(converted, decimales);
+                        label12.Text = "Convertion : " + arrondie + "H";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "H" && decimales > 15)
+                    {
+                        converted = secondes / 3600;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "H";
+                        label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                        label13.ForeColor = Color.Red;
+                        label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    }
 
+                    if (CNT == "Min" && decimales <= 15)
+                    {
+                        converted = secondes / 60;
+                        arrondie = Math.Round(converted, decimales);
+                        label12.Text = "Convertion : " + arrondie + "Min";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Min" &&  decimales > 15)
+                    {
+                        converted = secondes / 60;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "Min";
+                        label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                        label13.ForeColor = Color.Red;
+                        label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    }
+
+                    if (CNT == "Mil" && decimales <= 15)
+                    {
+                        converted = secondes * 1000;
+                        arrondie = Math.Round(converted, decimales);
+                        label12.Text = "Convertion : " + arrondie + "Mil";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Mil" && decimales > 15)
+                    {
+                        converted = secondes * 1000;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "Mil";
+                        label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                        label13.ForeColor = Color.Red;
+                        label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    }
+
+                    if (CNT == "J" && decimales <= 15)
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        arrondie = Math.Round(converted, decimales);
+                        label12.Text = "Convertion : " + arrondie + "J";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "J" && decimales > 15)
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "J";
+                        label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                        label13.ForeColor = Color.Red;
+                        label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    }
+
+                    if (CNT == "Mois" && decimales <= 15)
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        arrondie = Math.Round(converted, decimales);
+                        label12.Text = "Convertion : " + arrondie + " Mois";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Mois" && decimales > 15)
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + " Mois";
+                        label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                        label13.ForeColor = Color.Red;
+                        label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    }
+                }
+                catch {
+                    if (CNT == "H")
+                    {
+                        converted = secondes / 3600;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "H";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Min")
+                    {
+                        converted = secondes / 60;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "Min";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Mil")
+                    {
+                        converted = secondes * 1000;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "Mil";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "J")
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "J";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Mois")
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + " Mois";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                    label13.ForeColor = Color.Red;
+                    label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                }
+
+                
+            }
+            else
+            {
+                if (convertion == true)
+                {
+                    if (CNT == "H")
+                    {
+                        converted = secondes / 3600;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "H";
+                    }
+
+                    if (CNT == "Min")
+                    {
+                        converted = secondes / 60;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "Min";
+                    }
+
+                    if (CNT == "Mil")
+                    {
+                        converted = secondes * 1000;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "Mil";
+                    }
+
+                    if (CNT == "J")
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + "J";
+                    }
+
+                    if (CNT == "Mois")
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + " Mois";
+                    }
                 }
             }
         }
+        
 
         private void label13_Click(object sender, EventArgs e)
         {
@@ -252,16 +455,16 @@ namespace Chronomètre_Ultime
 
         private void label8_Click(object sender, EventArgs e)
         {
-
+            convertion = true;
             CNT = "Min";
-            convertion_on();
+            Convertion_on();
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
             convertion = true;
             CNT = "Mil";
-            convertion_on();
+            Convertion_on();
             
         }
 
@@ -269,21 +472,21 @@ namespace Chronomètre_Ultime
         {
             convertion = true;
             CNT = "J";
-            convertion_on();
+            Convertion_on();
         }
 
         private void label10_Click(object sender, EventArgs e)
         {
             convertion = true;
             CNT = "Mois";
-            convertion_on();
+            Convertion_on();
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
             convertion = true;
             CNT = "Ans";
-            convertion_on();
+            Convertion_on();
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -294,8 +497,7 @@ namespace Chronomètre_Ultime
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-            
+            Convertion_on();
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -313,6 +515,11 @@ namespace Chronomètre_Ultime
         }
 
         private void label1_TextChanged(object sender, EventArgs e)
+        {
+            Convertion_on();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
