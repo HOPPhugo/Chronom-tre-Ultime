@@ -51,6 +51,8 @@
             this.StopConvertion = new System.Windows.Forms.Timer(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.Chrono_minutes = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -74,6 +76,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Changer : Secondes";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -241,6 +244,7 @@
             this.label12.Size = new System.Drawing.Size(179, 31);
             this.label12.TabIndex = 16;
             this.label12.Text = "Convertion :--";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // label14
             // 
@@ -280,6 +284,17 @@
             this.label13.TabIndex = 20;
             this.label13.Text = "Nombre de décimal";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Chrono_minutes
+            // 
+            this.Chrono_minutes.Enabled = true;
+            this.Chrono_minutes.Interval = 60000;
+            this.Chrono_minutes.Tick += new System.EventHandler(this.Chrono_minutes_Tick);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 60000;
             // 
             // Form1
             // 
@@ -339,6 +354,8 @@
         private System.Windows.Forms.Timer StopConvertion;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Timer Chrono_minutes;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
