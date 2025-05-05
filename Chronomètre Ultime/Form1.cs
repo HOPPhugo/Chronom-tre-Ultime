@@ -123,30 +123,37 @@ namespace Chronomètre_Ultime
             if (chrono == false)
             {
                 label1.ForeColor = Color.LightBlue;
+                label2.Text = "LightBlue";
             }
             if (couleurChrono == "Black" && chrono == true)
             {
                 label1.ForeColor = Color.Black;
+                label2.Text = "Color : Black";
             }
             if (couleurChrono == "Red" && chrono == true)
             {
                 label1.ForeColor = Color.Red;
+                label2.Text = "Color : Red";
             }
             if (couleurChrono == "Yellow" && chrono == true)
             {
                 label1.ForeColor = Color.Yellow;
+                label2.Text = "Color : Yellow";
             }
             if (couleurChrono == "Purple" && chrono == true)
             {
                 label1.ForeColor = Color.Purple;
+                label2.Text = "Color : Purple";
             }
             if (couleurChrono == "Green" && chrono == true)
             {
                 label1.ForeColor = Color.Green;
+                label2.Text = "Color : Green";
             }
             if (couleurChrono == "Blue" && chrono == true)
             {
                 label1.ForeColor = Color.Blue;
+                label2.Text = "Color : Blue";
             }
             
 
@@ -270,6 +277,33 @@ namespace Chronomètre_Ultime
                         label13.ForeColor = Color.Red;
                         label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
                     }
+
+                    if (CNT == "Ans" && decimales <= 15)
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        converted = converted / 12;
+                        arrondie = Math.Round(converted, decimales);
+                        label12.Text = "Convertion : " + arrondie + " Ans";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
+                    if (CNT == "Ans" && decimales > 15)
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        converted = converted / 12;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + " Ans";
+                        label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
+                        label13.ForeColor = Color.Red;
+                        label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    }
                 }
                 catch {
                     if (CNT == "H")
@@ -321,9 +355,19 @@ namespace Chronomètre_Ultime
                         label13.ForeColor = Color.Black;
                         label13.Text = "Nombre de décimales";
                     }
-                    label13.Font = new Font(label13.Font, label13.Font.Style | FontStyle.Italic);
-                    label13.ForeColor = Color.Red;
-                    label13.Text = "Le nombre de decimal ne doit pas dépasser 15.";
+                    if (CNT == "Ans")
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        converted = converted / 12;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + " Ans";
+                        label13.Font = new Font(label13.Font, label13.Font.Style & ~FontStyle.Italic);
+                        label13.ForeColor = Color.Black;
+                        label13.Text = "Nombre de décimales";
+                    }
                 }
 
                 
@@ -370,6 +414,17 @@ namespace Chronomètre_Ultime
                         arrondie = Math.Round(converted, 3);
                         label12.Text = "Convertion : " + arrondie + " Mois";
                     }
+
+                    if (CNT == "Ans")
+                    {
+                        converted = secondes / 3600;
+                        converted = converted / 24;
+                        converted = converted / 7;
+                        converted = converted / 4;
+                        converted = converted / 12;
+                        arrondie = Math.Round(converted, 3);
+                        label12.Text = "Convertion : " + arrondie + " Ans";
+                    }
                 }
             }
         }
@@ -404,6 +459,7 @@ namespace Chronomètre_Ultime
             if (CNT == "H")
             {
                 label9.ForeColor = Color.SkyBlue;
+                
             }
             else
             {
